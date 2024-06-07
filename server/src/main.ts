@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { API_PREFIX } from './common/constants';
+import { SwaggerModule } from '@nestjs/swagger';
+import { swaggerConfig } from './config/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +18,10 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
+
+  // Set swagger
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup(`${API_PREFIX}/docs`, app, document);
 
   // Set app prefix
   app.setGlobalPrefix(API_PREFIX);

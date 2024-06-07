@@ -1,15 +1,15 @@
 import { Controller, Get } from '@nestjs/common';
-import { IApiInfo } from './common/types/api-info.interface';
-import { API_DESCRIPTION, API_TITLE, API_VERSION } from './common/constants';
+import { apiInfo, ApiInfo } from './common/types/api-info';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
   @Get()
-  getApiInfo(): IApiInfo {
-    return {
-      title: API_TITLE,
-      description: API_DESCRIPTION,
-      version: API_VERSION,
-    };
+  @ApiOperation({
+    summary: 'API info',
+    description: 'Find API info used as a test endpoint',
+  })
+  getApiInfo(): ApiInfo {
+    return apiInfo;
   }
 }

@@ -5,6 +5,7 @@ import globalConfig from './config/global';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AccountsModule } from './accounts/accounts.module';
 import { NonEmptyBodyPipe } from './pipes/non-empty-body.pipe';
+import { sanitizeJson } from './utils/mongoose-sanitize-plugin';
 
 @Module({
   imports: [
@@ -16,6 +17,10 @@ import { NonEmptyBodyPipe } from './pipes/non-empty-body.pipe';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         uri: configService.get<string>('databaseUrl'),
+        connectionFactory: (conn) => {
+          conn.plugin(sanitizeJson);
+          return conn;
+        },
       }),
       imports: [ConfigModule],
     }),

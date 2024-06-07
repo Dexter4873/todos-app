@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ApiHideProperty } from '@nestjs/swagger';
 
 @Schema()
 export class Account {
@@ -13,13 +14,14 @@ export class Account {
     required: true,
     select: false,
   })
+  @ApiHideProperty()
   password: string;
 
   @Prop()
-  name: string;
+  name?: string;
 
   @Prop()
-  lastname: string;
+  lastname?: string;
 }
 
 export const AccountSchema = SchemaFactory.createForClass(Account);
