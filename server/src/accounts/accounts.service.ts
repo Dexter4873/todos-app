@@ -6,6 +6,8 @@ import { Account } from './entities/account.entity';
 import { Model } from 'mongoose';
 import { OkResponse, okResponse } from '../common/types/ok-response';
 import { ResourceNotFoundError } from '../common/errors/resource-not-found-error';
+import { hash } from 'bcrypt';
+import { SALT_ROUNDS } from '../common/constants';
 
 @Injectable()
 export class AccountsService {
@@ -15,6 +17,7 @@ export class AccountsService {
 
   async create(createAccountDto: CreateAccountDto): Promise<Account> {
     await this.validateEmailUnique(createAccountDto.email);
+    createAccountDto.password = await hash(createAccountDto.password, SALT_ROUNDS);
     return this.accountModel.create(createAccountDto);
   }
 
