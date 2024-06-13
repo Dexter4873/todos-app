@@ -17,7 +17,10 @@ export class AccountsService {
 
   async create(createAccountDto: CreateAccountDto): Promise<Account> {
     await this.validateEmailUnique(createAccountDto.email);
-    createAccountDto.password = await hash(createAccountDto.password, SALT_ROUNDS);
+    createAccountDto.password = await hash(
+      createAccountDto.password,
+      SALT_ROUNDS,
+    );
     return this.accountModel.create(createAccountDto);
   }
 

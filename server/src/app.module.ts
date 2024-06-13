@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AccountsModule } from './accounts/accounts.module';
 import { NonEmptyBodyPipe } from './pipes/non-empty-body.pipe';
 import { sanitizeJson } from './utils/mongoose-sanitize-plugin';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { sanitizeJson } from './utils/mongoose-sanitize-plugin';
       imports: [ConfigModule],
     }),
     AccountsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [NonEmptyBodyPipe],
