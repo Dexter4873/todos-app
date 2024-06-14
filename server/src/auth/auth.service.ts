@@ -10,6 +10,7 @@ import { ConfigService } from '@nestjs/config';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { RefreshResponse } from '../common/types/refresh-response';
 import { SignInResponse } from '../common/types/sing-in-response';
+import { JwtPayloadData } from '../common/types/jwt-payload-data';
 
 @Injectable()
 export class AuthService {
@@ -41,9 +42,9 @@ export class AuthService {
     if (!validPassword) throw new UnauthorizedException();
 
     // Create payload
-    const payload = {
+    const payload: JwtPayloadData = {
       email: account.email,
-      id: account._id,
+      id: account._id.toString(),
     };
 
     // Sign access token

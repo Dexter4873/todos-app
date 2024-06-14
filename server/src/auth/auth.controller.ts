@@ -5,6 +5,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { SignInResponse } from '../common/types/sing-in-response';
 import { RefreshResponse } from '../common/types/refresh-response';
+import { Public } from 'src/decorators/public.decorator';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -12,6 +13,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('sign-in')
+  @Public()
   @HttpCode(200)
   @ApiOperation({
     summary: 'Sing in',
@@ -23,6 +25,7 @@ export class AuthController {
   }
 
   @Post('refresh')
+  @Public()
   @HttpCode(200)
   @ApiOperation({
     summary: 'Refresh access token',
