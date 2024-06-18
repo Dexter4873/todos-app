@@ -1,8 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ApiHideProperty } from '@nestjs/swagger';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 
 @Schema()
 export class Account {
+  @ApiProperty()
+  id: string;
+
   @Prop({
     required: true,
     unique: true,
